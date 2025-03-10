@@ -1,1 +1,1 @@
-Maya: index.html, about.html, menu.html, store.html, contact.html, managerlogin.html, 
+
