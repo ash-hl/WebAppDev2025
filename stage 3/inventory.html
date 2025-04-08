@@ -146,6 +146,25 @@
             height: 15vh;   
 
         }
+
+        .edit-button {
+            display: flex;               
+            justify-content: center;     
+            align-items: center;         
+            gap: 10px;                   
+            height: 15vh;   
+        }
+
+        .edit-button button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #88B44E;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
         .inventory-buttons button {
             padding: 15px 30px;
             font-size: 16px;
@@ -166,34 +185,69 @@
                     <th>Product Name</th>
                     <th>Quantity&nbsp;</th>
                     <th>Price</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="table-body">
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>Product 1</td>
+                    <td>0</td>
+                    <td>$0</td>
+                    <td class="edit-button"><button onclick="editRow(this)">Edit Item</button></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>Product 2</td>
+                    <td>0</td>
+                    <td>$0</td>
+                    <td class="edit-button"><button onclick="editRow(this)">Edit Item</button></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>Product 3</td>
+                    <td>0</td>
+                    <td>$0</td>
+                    <td class="edit-button"><button onclick="editRow(this)">Edit Item</button></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>Product 4</td>
+                    <td>0</td>
+                    <td>$0</td>
+                    <td class="edit-button"><button onclick="editRow(this)">Edit Item</button></td>
                 </tr>
+            </tr>
             </tbody>
         </table>
+        <div>
+            <form id = "edit-form" style="display: none; margin-top: 20px;">
+                <label for="name">Product Name: </label>
+                <input type="text" id="name" name="name"><br><br>
+
+                <label for="quantity">Quantity: </label>
+                <input type="text" id="quantity" name="quantity"><br><br>
+
+                <label for="price">Price: </label>
+                <input type="text" id="price" name="price"><br><br>
+
+                <button type="submit">Save</button>
+            </form>
+            <script>
+                function editRow(button) {
+                    let row = button.parentNode.parentNode;
+
+                    let name = row.cells[0].innerText;
+                    let quantity = row.cells[1].innerText;
+                    let price = row.cells[2].innerText;
+
+                    document.getElementById("name").value = name;
+                    document.getElementById("quantity").value = quantity;
+                    document.getElementById("price").value = price;
+
+                    document.getElementById("edit-form").style.display = "block";
+                }
+            </script>
         </div>
+        
         <div class = "inventory-buttons">
-            <button>Add item</button> <button>Delete Item</button> <button>Edit Item</button>
+            <button>Add item</button> <button>Delete Item</button> 
         </div>
     <!-- Inventory End -->
 
