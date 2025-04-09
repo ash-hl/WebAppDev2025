@@ -102,33 +102,45 @@
         </div>
     </div>
     <style>
-        .menu-buttons {
-            display: flex;               
-            justify-content: center;     
-            align-items: center;         
-            gap: 10px;                   
-            height: 15vh; 
-        }
-
-        .menu-buttons button {
-            padding: 15px 30px;
-            font-size: 16px;
-            background-color: #88B44E;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            transition: background-color 0.3s ease;
-        }
-
-        ul {
+         ul {
             list-style-type: none;
             margin: 0;
             padding: 20px;
             text-align: center;
-        }        
+        }
+
+                #menu-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 400px;
+            }
+
+        #menu-list li {
+            margin: 10px 0;
+        }
+
+        #menu-list li a {
+            display: block;
+            padding: 12px 20px;
+            background-color: #f8f9fa;
+            color: #343a40;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        #menu-list li a:hover {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            transform: translateY(-2px);
+        }
+          
     </style>
     <div>
-        <ul>
+        <ul id="menu-list">
             <li><a href="inventory.html">Inventory Menu</a></li>
             <li><a href="ordermanagement.html">Order Management Menu</a></li>
           </ul>
