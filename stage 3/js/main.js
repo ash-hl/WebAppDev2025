@@ -94,5 +94,231 @@
         nav: false,
     });
     
+
+    // purchasable items
+
+    function add_to_cart(item){
+        switch(item){
+            case 0:
+                insertItem(item_db,{
+                    item_id :0,
+                    name : 'Boba Tea Mix',
+                    price : 19.00
+                });
+                break;
+            case 1:
+                //
+                break;
+            case 2:
+                //
+                break;
+            case 3:
+                //
+                break;
+        }
+    }
+
+
+    //
+    
+
+    // Building database
+    const cart_btn = document.getElementById("addToCart");
+
+    cart_btn.onclick = function() {
+        getAccountId(0);
+    }
+
+    // opening databases
+    const req_account_db = indexedDB.open("AccountDB",1);
+    const req_cart_db = indexedDB.open("CartDB",1);
+    const req_item_db = indexedDB.open("ItemDB",1);
+
+    // storing db in variables
+    var account_db = null;
+    var cart_db = null;
+    var item_db = null;
+
+    // creating account database
+    req_account_db.onsuccess = (event) => {
+
+        account_db = event.target.result;
+        
+        console.table(account_db);
+        
+        insertAccount(account_db,{
+            account_id : 0,
+            username : 'AdminAccount',
+            password : 'password123',
+            privilege :1
+        });
+        
+        let local_user = new Promise((resolve,reject)=>{
+
+            if (true){
+                resolve();
+            }
+        });
+    }
+
+    // creating cart database
+    req_cart_db.onsuccess = (event) => {
+        cart_db = event.target.result;
+
+        insertCart(cart_db,{
+            account_id : 0,
+            item_id : 0,
+            quantity : 10
+        })
+
+    }
+
+    // creating item database
+    req_item_db.onsuccess = (event) => {
+        item_db = event.target.result;
+    }
+
+    req_cart_db.onupgradeneeded = (event) => {
+        let db = event.target.result;
+        let store = db.createObjectStore('Cart',{autoIncrement: true});
+        store.createIndex('account_id','Accounts',{unique: true});
+        store.createIndex('item_id','Items',{unique: true});
+        store.createIndex('quantity','quantity',{unique: false});        
+    }
+
+    req_item_db.onupgradeneeded = (event) => {
+        let db = event.target.result;
+        let store = db.createObjectStore('Items',{autoIncrement: true});
+        store.createIndex('item_id','item_id',{unique: true});
+        store.createIndex('name','name',{unique: false});
+        store.createIndex('price','price',{unique: false});
+
+    }
+
+    req_account_db.onupgradeneeded=(event)=>{
+        let db = event.target.result;
+        let store = db.createObjectStore('Accounts',{autoIncrement: true});
+        store.createIndex('account_id','account_id',{unique: true});
+        store.createIndex('username','username',{unique: true});
+        store.createIndex('password','password',{unique: false});
+        store.createIndex('privilege','privilege',{unique: false});
+
+    };
+
+    function insertItem(db,item){
+        const txn = db.transaction('Items','readwrite');
+
+        const store = txn.objectStore('Items');
+
+        let query = store.put(item);
+
+        query.onsuccess = function (event) {
+            console.log(event);
+        }
+
+        query.onerror = function (event) {
+            console.log(event.target.errorCode);
+        }
+
+        txn.oncomplete = function () {
+            db.close();
+        } 
+    }
+
+    function insertCart(db,cart){
+        const txn = db.transaction('Cart','readwrite');
+
+        const store = txn.objectStore('Cart');
+
+        let query = store.put(cart);
+
+        query.onsuccess = function (event) {
+            console.log(event);
+        }
+
+        query.onerror = function (event) {
+            console.log(event.target.errorCode);
+        }
+
+        txn.oncomplete = function () {
+            db.close();
+        } 
+    }
+
+    function insertAccount(db,account) {
+        const txn = db.transaction('Accounts','readwrite');
+
+        const store = txn.objectStore('Accounts');
+
+        let query = store.put(account);
+
+        query.onsuccess = function (event) {
+            console.log(event);
+        }
+
+        query.onerror = function (event) {
+            console.log(event.target.errorCode);
+        }
+
+        txn.oncomplete = function () {
+            db.close();
+        }
+    }
+
+    function getAccountId(account_id) {
+        let req = indexedDB.open("AccountDB",1);
+        let db;
+        let account=5;
+        req.onsuccess = (event) =>{
+            db = event.target.result;
+            console.log("Request Complete.")
+            
+            const txn = db.transaction('Accounts','readonly');
+            const store = txn.objectStore('Accounts');
+            const index = store.index('account_id')
+            
+            let query = index.get(account_id);
+    
+            query.onsuccess = (event) => {
+                // console.log(event);
+                account = query.result['username'];
+                
+                
+                // return account;
+            }
+            // query.onerror = (event)=>{
+                //     console.log("error bruh..");
+                // }
+                txn.oncomplete = function(){
+                    db.close();
+                }
+            }
+            
+        console.log(account);
+        
+        return account;
+    }
+    
+    
+
+    function removeAccount(req_account_db,id) {
+        const txn = db.transaction('Accounts','readwrite');
+        const store = txn.objectStore('Accounts');
+
+        let query = store.delete(id);
+
+        query.onsuccess = function(event) {
+            console.log(event);
+        };
+
+        query.onerror = function(event) {
+            console.log(event.target.errorcode);
+        };
+
+        txn.oncomplete = function(){
+            db.close;
+        }
+    }
+
 })(jQuery);
 
