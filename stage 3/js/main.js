@@ -127,6 +127,7 @@
 
     cart_btn.onclick = function() {
         getAccountId(0);
+        console.log(localStorage.getItem("test"));
     }
 
     // opening databases
@@ -153,12 +154,7 @@
             privilege :1
         });
         
-        let local_user = new Promise((resolve,reject)=>{
-
-            if (true){
-                resolve();
-            }
-        });
+       
     }
 
     // creating cart database
@@ -282,6 +278,7 @@
             query.onsuccess = (event) => {
                 // console.log(event);
                 account = query.result['username'];
+                localStorage.setItem("test",query.result['username']);
                 
                 
                 // return account;
