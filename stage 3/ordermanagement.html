@@ -101,10 +101,57 @@
             </div>
         </div>
     </div>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+                #account-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 400px;
+            }
+
+        #account-list li {
+            margin: 10px 0;
+        }
+
+        #account-list li a {
+            display: block;
+            padding: 12px 20px;
+            background-color: #f8f9fa;
+            color: #343a40;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        #account-list li a:hover {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            transform: translateY(-2px);
+        }
+
+    </style>
     <div>
-        
+        <ul id="account-list">
+            <li><a href="#" onclick="goToOrder('account1')">Account 1</a></li>
+            <li><a href="#" onclick="goToOrder('account2')">Account 2</a></li>
+            <li><a href="#" onclick="goToOrder('account3')">Account 3</a></li>
+        </ul>
 
     </div>
+    <script>
+        function goToOrder(accountId) {
+            window.location.href = `/orders/${accountId}`;
+        }
+    </script>
     <!-- Order Management End -->
 
 
