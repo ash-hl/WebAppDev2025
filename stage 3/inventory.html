@@ -226,11 +226,14 @@
 
                 <label for="price">Price: </label>
                 <input type="text" id="price" name="price"><br><br>
-
-                <button type="submit">Save</button>
+             
+                <div class = "inventory-buttons">
+                    <button onclick = "deleteItem()">Delete Item</button> 
+                    <button type="submit">Save</button> 
+                </div>
             </form>
             <script>
-                function editRow(button) {
+                /*function editRow(button) {
                     let row = button.parentNode.parentNode;
 
                     let name = row.cells[0].innerText;
@@ -242,13 +245,65 @@
                     document.getElementById("price").value = price;
 
                     document.getElementById("edit-form").style.display = "block";
+                }*/
+
+            
+                function editRow(button) {
+                    let row = button.parentNode.parentNode;
+
+                    
+                    window.selectedRow = row;
+
+                    
+                    let name = row.cells[0].innerText;
+                    let quantity = row.cells[1].innerText;
+                    let price = row.cells[2].innerText;
+
+                    
+                    document.getElementById("name").value = name;
+                    document.getElementById("quantity").value = quantity;
+                    document.getElementById("price").value = price;
+
+                    
+                    document.getElementById("edit-form").style.display = "block";
                 }
+
+                
+                document.getElementById("edit-form").addEventListener("submit", function(event) {
+                    event.preventDefault(); 
+
+                    
+                    let updatedName = document.getElementById("name").value;
+                    let updatedQuantity = document.getElementById("quantity").value;
+                    let updatedPrice = document.getElementById("price").value;
+
+                    
+                    selectedRow.cells[0].innerText = updatedName;
+                    selectedRow.cells[1].innerText = updatedQuantity;
+                    selectedRow.cells[2].innerText = updatedPrice;
+
+                    
+                    document.getElementById("edit-form").style.display = "none";
+                });
+
+                function deleteItem() {
+                    selectedRow.remove();
+                    document.getElementById("edit-form").style.display = "none";
+
+                    
+                    
+                }
+
+
+
             </script>
         </div>
         
         <div class = "inventory-buttons">
-            <button>Add item</button> <button>Delete Item</button> 
+            <button>Add item</button> 
         </div>
+
+
     <!-- Inventory End -->
 
 
