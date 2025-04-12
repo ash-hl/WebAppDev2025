@@ -1,8 +1,8 @@
 === To Do ==
-- log in functionality
-  - search account by username & password
-  - show username on pages when logged in
-  - keep track of active user in local storage
+- log in functionality [ DONE ]
+  - [ DONE ] search account by username & password
+  - [ SCRAPPED ] show username on pages when logged in
+  - [ DONE ] keep track of active user in local storage
 
 - add to cart functionality
   - add items to cart database with active user account id
