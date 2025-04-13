@@ -7,7 +7,7 @@
 - add to cart functionality
   - [ REWORKED ] add items to cart database with active user account id
     - [ DONE ] Carts get created in local storage as a key-value pair for each item.
-  - redirect to log in if not logged in
+  - [ DONE ]  redirect to log in if not logged in
   - some way to remove items from your cart
 
 - check out functionality
