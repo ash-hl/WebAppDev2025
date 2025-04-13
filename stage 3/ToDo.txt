@@ -6,13 +6,14 @@
 
 - add to cart functionality
   - [ REWORKED ] add items to cart database with active user account id
-    - [ DONE ] Carts get created in local storage as a key-value pair for each item.
+  - [ DONE ] Carts get created in local storage as a key-value pair for each item.
+  - [ DONE ] Show items in cart, and calculate price.
   - [ DONE ]  redirect to log in if not logged in
-  - some way to remove items from your cart
+  - [ IN PROGRESS ] some way to remove items from your cart
 
 - check out functionality
-  - show endpoint page when check out button is clicked
-  - go back to main after endpoint page
+  - [ DONE ] show endpoint page when check out button is clicked
+  - [ DONE ]  go back to main after endpoint page; DONE MANUALLY BY USER
 
 - manager
   - show manager page if logged in as manager
