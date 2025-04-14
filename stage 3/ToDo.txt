@@ -17,7 +17,7 @@
 
 - manager
   - [ DONE ] show manager page if logged in as manager
-  - inventory screen
-  - order management screen
+  - [ FUNCTIONAL, BUT DOES NOT SAVE ] inventory screen
+  - [ NOT FUNCTIONAL ]  order management screen
 
 == Done ==
