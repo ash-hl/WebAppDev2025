@@ -1,23 +1,21 @@
 === To Do ==
-- log in functionality [ DONE ]
-  - [ DONE ] search account by username & password
-  - [ SCRAPPED ] show username on pages when logged in
-  - [ DONE ] keep track of active user in local storage
+- log in functionality
+  - search account by username & password
+  - show username on pages when logged in
+  - keep track of active user in local storage
 
 - add to cart functionality
-  - [ REWORKED ] add items to cart database with active user account id
-  - [ DONE ] Carts get created in local storage as a key-value pair for each item.
-  - [ DONE ] Show items in cart, and calculate price.
-  - [ DONE ]  redirect to log in if not logged in
-  - [ IN PROGRESS ] some way to remove items from your cart
+  - add items to cart database with active user account id
+  - redirect to log in if not logged in
+  - some way to remove items from your cart
 
 - check out functionality
-  - [ DONE ] show endpoint page when check out button is clicked
-  - [ DONE ]  go back to main after endpoint page; DONE MANUALLY BY USER
+  - show endpoint page when check out button is clicked
+  - go back to main after endpoint page
 
 - manager
-  - [ DONE ] show manager page if logged in as manager
-  - [ FUNCTIONAL, BUT DOES NOT SAVE ] inventory screen
-  - [ NOT FUNCTIONAL ]  order management screen
+  - show manager page if logged in as manager
+  - inventory screen
+  - order management screen
 
 == Done ==
