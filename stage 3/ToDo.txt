@@ -16,7 +16,7 @@
   - [ DONE ]  go back to main after endpoint page; DONE MANUALLY BY USER
 
 - manager
-  - show manager page if logged in as manager
+  - [ DONE ] show manager page if logged in as manager
   - inventory screen
   - order management screen
 
