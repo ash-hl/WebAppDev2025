@@ -190,6 +190,8 @@
             }
 
             insertOrder(new_order);
+
+            clearCartAfterPurchase();
         }
     }
 
@@ -251,6 +253,7 @@
 
 
     }
+
 
     // management nav bar
 
@@ -641,3 +644,44 @@
 
 })(jQuery);
 
+    
+    function logoutButton() {
+        let username = localStorage.getItem("username");
+        const logoutContainer = document.getElementById("logout-button");
+
+        //checking if the username exists as well as the logoutContainer
+        if (username && logoutContainer) {
+            //adding button
+            logoutContainer.innerHTML =  `<button id="logoutBtn" class="logout-Btn">Logout</button>`;
+
+            //removing info when the logout button is clicked
+            document.getElementById("logoutBtn").onclick = function() {
+                localStorage.removeItem("username");
+                localStorage.removeItem("privilege");
+                localStorage.removeItem("account_id");
+
+                window.location.href = "index.html";
+
+            }
+
+        }
+    }
+
+    window.onload = function () {
+        logoutButton();
+    };
+    
+
+    function clearCartAfterPurchase() {
+
+        //getting the id of the user currently logged in
+        let current_id = localStorage.getItem("account_id");
+        //looping through local storage to remove each item in users cart
+        for(let key in localStorage) {
+            if (key.startsWith("cart_"+ current_id)) {
+                localStorage.removeItem(key);
+            }
+        }
+
+        console.log("Cart Cleared");
+    }
