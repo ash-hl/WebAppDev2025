@@ -1,8 +1,15 @@
+from appUser import AppUser
 from flask import Flask, render_template, g,request
 import sqlite3
 
-
 DATABASE = 'sql/projDB.db'
+
+# if current_user is none, we are logged out
+current_user : AppUser = AppUser(-1,"","",-1)
+
+# what works now
+# - we can log in
+# - we can click oolong tea, and it will NOT log us out. This is to test the add to cart stuff
 
 app = Flask(__name__)
 @app.route('/')
@@ -38,7 +45,7 @@ def purchasecomplete():
     return render_template('purchasecomplete.html')
 
 #connecting to Databse
-def get_db():
+def get_db()->sqlite3.Connection:
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
@@ -50,13 +57,12 @@ def get_username():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    _validate_login(username,password)
-
-    return render_template('index.html')
+    
+    return _validate_login(username,password)
 
 def _validate_login(username,password):
     print("Validating Login")
-    connection = sqlite3.connect(DATABASE)
+    connection = get_db()
 
     # sanitizing inputs
     username = str(username)
@@ -66,12 +72,55 @@ def _validate_login(username,password):
     q = f"SELECT username,password FROM Accounts WHERE username='{username}' AND password='{password}'"
 
     # getting data from query
-    data = connection.execute(q)
+    data = connection.execute(q).fetchone()
 
-    for entry in data:
-        print(entry)
-    return render_template('index.html')
+    try:
+        # if user if found, log in and set active user
+        if username in data and password in data:
+            user_q = f"SELECT account_id,username,password,privilege FROM Accounts WHERE username='{username}' AND password='{password}'"
 
+            # getting data from query
+            user_data = connection.execute(user_q).fetchone()
+            current_user.update_user(
+                int(user_data[0]),
+                str(user_data[1]),
+                str(user_data[2]),
+                int(user_data[3])
+                )
+            
+
+            print("\tFound USERNAME and PASSWORD")
+            return render_template('index.html')
+    except:
+        print("\tfailed log in, go to log in again")
+        return render_template('managerlogin.html')
+
+@app.route("/add_item",methods=['POST'])
+def insert_order_entry():
+    # this method is not finished
+    # creates a new entry into the OrderEntry table
+    # (account_id, quantity, item_id)
+    print(current_user)
+    if current_user == None:
+
+        print("Not logged in")
+        return render_template('managerlogin.html')
+
+    item_id = request.form.get("itemButton")
+    print(f"\tItem ID:{item_id}")
+
+    q = ""
+
+
+    return render_template('store.html')
+
+
+
+def sign_out():
+    # this method is not finished
+    # remove active user
+    current_user = None
+    return
 
 
 @app.teardown_appcontext
