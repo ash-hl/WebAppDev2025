@@ -81,6 +81,8 @@ def _validate_login(username,password):
 
             # getting data from query
             user_data = connection.execute(user_q).fetchone()
+            
+            # updating user to match the user data found
             current_user.update_user(
                 int(user_data[0]),
                 str(user_data[1]),
@@ -97,12 +99,12 @@ def _validate_login(username,password):
 
 @app.route("/add_item",methods=['POST'])
 def insert_order_entry():
+    
     # this method is not finished
     # creates a new entry into the OrderEntry table
     # (account_id, quantity, item_id)
-    print(current_user)
-    if current_user == None:
 
+    if not current_user.is_logged_in():
         print("Not logged in")
         return render_template('managerlogin.html')
 
@@ -119,7 +121,7 @@ def insert_order_entry():
 def sign_out():
     # this method is not finished
     # remove active user
-    current_user = None
+    current_user.log_out()
     return
 
 
