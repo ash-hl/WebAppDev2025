@@ -1,4 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
+import sqlite3
+
+
+DATABASE = 'sql/projDB.db'
+
 app = Flask(__name__)
 @app.route('/')
 
@@ -31,6 +36,30 @@ def checkout():
 @app.route('/purchasecomplete')
 def purchasecomplete():
     return render_template('purchasecomplete.html')
+
+#connecting to Databse
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+@app.route('/testdb')
+def testdb():
+    try:
+        db = get_db()
+        cur = db.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cur.fetchall()
+        return f"Connected! Tables: {[table[0] for table in tables]}"
+    except Exception as e:
+        return f"Database connection failed: {e}"
+    
 
 
 if __name__ == "__main__":
