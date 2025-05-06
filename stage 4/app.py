@@ -116,13 +116,13 @@ def insert_order_entry():
 
     return render_template('store.html')
 
-
-
+@app.route("/logout",methods=['POST'])
 def sign_out():
     # this method is not finished
     # remove active user
+    print("Logging out")
     current_user.log_out()
-    return
+    return render_template('index.html')
 
 
 @app.teardown_appcontext
@@ -145,9 +145,3 @@ def testdb():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
-    
-  
-  
-  
-    
