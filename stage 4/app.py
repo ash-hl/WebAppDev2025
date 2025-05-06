@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g,request
 import sqlite3
 
 
@@ -43,6 +43,36 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+
+@app.route("/manager-dashboard",methods=["POST"])
+def get_username():
+    
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    _validate_login(username,password)
+
+    return render_template('index.html')
+
+def _validate_login(username,password):
+    print("Validating Login")
+    connection = sqlite3.connect(DATABASE)
+
+    # sanitizing inputs
+    username = str(username)
+    password = str(password)
+
+    # writing query
+    q = f"SELECT username,password FROM Accounts WHERE username='{username}' AND password='{password}'"
+
+    # getting data from query
+    data = connection.execute(q)
+
+    for entry in data:
+        print(entry)
+    return render_template('index.html')
+
+
 
 @app.teardown_appcontext
 def close_connection(exception):
