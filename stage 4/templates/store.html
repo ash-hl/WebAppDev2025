@@ -182,10 +182,12 @@
                             <p>Oolong tea mix is a balanced blend of partially fermented tea leaves, offering a smooth, rich flavor with floral and toasty notes. Perfect for hot or iced tea, it provides a refreshing taste and natural antioxidants in every cup.</p>
                             <h4 class="text-primary">$19.00</h4>
                         </div>
-                        <div class="store-overlay">
-                            <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
-                            <button id="oolong"  type="button"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
-                        </div>
+                        <form action="/add_item", method="POST">
+                            <div class="store-overlay" >
+                                <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+                                <button id="oolong" value="4" name="itemButton" type="submit"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
