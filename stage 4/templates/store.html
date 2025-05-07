@@ -119,10 +119,12 @@
                             <p>Make your own delicious boba tea at home with our easy-to-use mix! Just add milk, tea, and tapioca pearls for a perfect, café-quality drink.</p>
                             <h4 class="text-primary">$19.00</h4>
                         </div>
-                        <div class="store-overlay">
-                            <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
-                            <button id="boba"  type="button"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
-                        </div>
+                        <form action="/add_item" method="POST">
+                            <div class="store-overlay">
+                                <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+                                <button id="boba" value="1" name="itemButton" type="submit"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -140,10 +142,12 @@
                             <p>Powdered green tea mix is a finely ground blend of high-quality green tea leaves, offering a smooth, rich flavor and vibrant color.</p>
                             <h4 class="text-primary">$19.00</h4>
                         </div>
-                        <div class="store-overlay">
-                            <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
-                            <button id="greenTea"  type="button"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
-                        </div>
+                        <form action="/add_item" method="POST">
+                            <div class="store-overlay">
+                                <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+                                <button id="greenTea"  value="3" name="itemButton" type="submit"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
@@ -161,10 +165,12 @@
                             <p>Chai tea mix is a flavorful blend of black tea and aromatic spices like cinnamon, cardamom, ginger, and cloves. Perfect for brewing a warm, comforting chai latte or enjoying over ice, it delivers a rich, spiced flavor with a touch of natural sweetness.</p>
                             <h4 class="text-primary">$19.00</h4>
                         </div>
-                        <div class="store-overlay">
-                            <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
-                            <button id="chai"  type="button"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
-                        </div>
+                        <form action="/add_item" method="POST">
+                            <div class="store-overlay">
+                                <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
+                                <button id="chai" value="2" name="itemButton" type="submit"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
@@ -182,7 +188,7 @@
                             <p>Oolong tea mix is a balanced blend of partially fermented tea leaves, offering a smooth, rich flavor with floral and toasty notes. Perfect for hot or iced tea, it provides a refreshing taste and natural antioxidants in every cup.</p>
                             <h4 class="text-primary">$19.00</h4>
                         </div>
-                        <form action="/add_item", method="POST">
+                        <form action="/add_item" method="POST">
                             <div class="store-overlay" >
                                 <a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
                                 <button id="oolong" value="4" name="itemButton" type="submit"  href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></button>
