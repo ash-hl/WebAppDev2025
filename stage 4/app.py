@@ -1,5 +1,5 @@
 from appUser import AppUser
-from flask import Flask, render_template, g,request
+from flask import Flask, render_template, g,request,jsonify
 import sqlite3
 
 DATABASE = 'sql/projDB.db'
@@ -13,9 +13,11 @@ current_user : AppUser = AppUser(-1,"","",-1)
 # - we can add items to card
 # - we can see the cart!!!
 
-app = Flask(__name__)
-@app.route('/')
 
+
+app = Flask(__name__)
+
+@app.route('/')
 def index():
     return render_template('index.html')
 
@@ -48,8 +50,6 @@ def checkout():
     midHhtml = ''
     template_container_opener = '<div id="cartContainer">'
     template_container_closer = '</div>'
-    template_cart_item = '<p><a href="#">[REPLACE_A]</a> <span class="price">$[REPLACE_B]</span></p>'
-    template_price = f'<p>Total <span class="price" style="color:black"><b id="priceTotal" >$30</b></span></p>'
     price_total = 0.0
 
     # --- get items that need to be rendered
@@ -64,13 +64,33 @@ def checkout():
         print(f'item_res :{item_res}')
         item_name = item_res[0]
         item_price = item_res[1]
-        midHhtml += f'<p><a href="#">{item_name}</a> <span class="price">${price_total}</span></p>'
+
+        quantity_q = f"SELECT quantity FROM OrderEntry where account_id={current_user.get_account_id()} AND item_id={entry[2]}"
+        quant_res = connection.execute(quantity_q).fetchone()
+        quantity = quant_res[0]
+
+        item_price *= quantity
+        price_total += item_price
+        midHhtml += f'<p><a href="#">{item_name}</a> <span class="price">${item_price}</span></p>'
+
     
 
-
+    midHhtml += f'<p>Total <span class="price" style="color:black"><b id="priceTotal" >Total: ${price_total:0.01f}</b></span></p>'
+    midHhtml += '<form action="/clearInventory"><input type="submit" value="Clear Cart" class="btn-form" id="completePurchase"></form>'
     html = template_container_opener + midHhtml + template_container_closer
 
     return render_template('contact.html',content=html)
+
+@app.route('/clearInventory')
+def clearCart():
+
+    connection = get_db()
+    q=f"DELETE FROM OrderEntry WHERE account_id={current_user.get_account_id()}"
+    connection.execute(q)
+    connection.commit()
+
+
+    return checkout()
 
 @app.route('/purchasecomplete')
 def purchasecomplete():
@@ -101,7 +121,7 @@ def _validate_login(username,password):
     password = str(password)
 
     # writing query
-    q = f"SELECT username,password FROM Accounts WHERE username='{username}' AND password='{password}'"
+    q = f"SELECT username,password,privilege FROM Accounts WHERE username='{username}' AND password='{password}'"
 
     # getting data from query
     data = connection.execute(q).fetchone()
@@ -122,7 +142,9 @@ def _validate_login(username,password):
                 int(user_data[3])
                 )
             
-
+            if current_user.get_privilege() == 1:
+                return render_template('managermenu.html')
+            
             print("\tFound USERNAME and PASSWORD")
             return render_template('index.html')
     except:
@@ -179,7 +201,6 @@ def sign_out():
     current_user.log_out()
     return render_template('index.html')
 
-
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -196,7 +217,5 @@ def testdb():
     except Exception as e:
         return f"Database connection failed: {e}"
     
-
-
 if __name__ == "__main__":
     app.run(debug=True)
