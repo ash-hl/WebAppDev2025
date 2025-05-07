@@ -13,6 +13,15 @@ class AppUser():
         self.password = password
         self.privilege = privilege
 
+    def is_logged_in(self):
+        return not (self.account_id == -1)
+
+    def log_out(self):
+        self.account_id = -1
+        self.username = ""
+        self.password = ""
+        self.privilege = -1
+    
     def get_account_id(self):
         return self.account_id
 
