@@ -1,5 +1,5 @@
 from appUser import AppUser
-from flask import Flask, render_template, g,request,jsonify
+from flask import Flask, render_template, g,request
 import sqlite3
 
 DATABASE = 'sql/projDB.db'
